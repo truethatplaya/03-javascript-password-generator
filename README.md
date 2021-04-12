@@ -36,19 +36,13 @@ WHEN the password is generated
 THEN the password is either displayed in an alert or written to the page
 ```
 
-## Mock-Up
-
-The following image shows the web application's appearance and functionality:
-
-![The Password Generator application displays a red button to "Generate Password".](./Assets/03-javascript-homework-demo.png)
-
 ## Screenshot
 
-![Go to a screenshot of password generator](./Assets/password-generator-screenshot.png)
+[Go to a screenshot of password generator](./Assets/password-generator-screenshot.png)
 
 ## Link to deploy website
 
-[Go to password generator](https://truethatplaya.github.io/03-javascript-password-generator/)
+[Go to password generator website](https://truethatplaya.github.io/03-javascript-password-generator/)
 
 ## Link to git hub repository "portfolio-ejh-est-2021"
 
