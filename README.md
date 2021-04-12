@@ -44,7 +44,7 @@ The following image shows the web application's appearance and functionality:
 
 ## Screenshot
 
-![Go to a screenshot of password generator](//insert image here//)
+![Go to a screenshot of password generator](./Assets/password-generator-screenshot.png)
 
 ## Link to deploy website
 
