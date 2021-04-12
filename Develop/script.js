@@ -2,7 +2,7 @@
 var numbers = "1234567890";
 var lowerLetters = "abcdefghijklmnopqrstuvwxyz";
 var upperLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-var specialChar = "!()*+,-./:~";
+var specialChars = "!()*+,-./:~";
 var passwordLength = 0;
 
 // boolan vaules to determine if the user wants to use numbers, lowerLetters, upperLetters, or specialChar
@@ -31,7 +31,6 @@ var specialPrompt = {
 };
 var lengthPrompt = { name: "lengthPrompt", prompt: this.runlengthPrompt() };
 
-
 var promptsArray = [
   //items for prompts
   numberPrompt,
@@ -41,7 +40,6 @@ var promptsArray = [
   lengthPrompt,
 ];
 var password = [];
-
 
 // STARTER CODE
 var generateBtn = document.querySelector("#generate");
@@ -58,25 +56,25 @@ function getPrompts(prompts) {
   
       if (item.name === "numberPrompt") {
       var numberResponse = prompt(item.prompt);
-      if (numberResponse === "Y") {
+      if (numberResponse.toUpperCase() === "Y") {
         useNumbers = true;
       }
       
       } else if (item.name === "lowerPrompt") {
       var lowerResponse = prompt(item.prompt);
-      if (lowerResponse === "Y") {
+      if (lowerResponse.toUpperCase() === "Y") {
         useLower = true;
       }
 
       } else if (item.name === "upperPrompt") {
         var upperResponse = prompt(item.prompt);
-        if (upperResponse === "Y"){
+        if (upperResponse.toUpperCase() === "Y"){   
           useUpper = true;
       }
 
       } else if (item.name === "specialPrompt") {
         var specialResponse = prompt(item.prompt);
-        if (specialResponse === "Y"){
+        if (specialResponse.toUpperCase() === "Y"){
           useSpecial = true;
       }
 
@@ -85,10 +83,34 @@ function getPrompts(prompts) {
       var lengthResponse = runlengthPrompt(); 
     }
   }
-  
-  console.log(useNumbers, useLower, useUpper, useSpecial, lengthResponse);
 
-  var potentialPasswordChars = 
+  getPasswordCharacters(useNumbers, useLower, useUpper, useSpecial, lengthResponse); 
+}
+
+function getPasswordCharacters(useNumbers, useLower, useUpper, useSpecial, lengthResponse) {
+  debugger;
+  var potentialPasswordChars = '';
+
+  if (useUpper) {
+    potentialPasswordChars = upperLetters;
+  } 
+
+ if (useLower) {
+    potentialPasswordChars += lowerLetters;  
+  }
+
+ if (useNumbers) {
+    potentialPasswordChars += numbers;
+  }
+
+ if (useSpecial) {
+    potentialPasswordChars += specialChars;
+  }
+
+  var password = getRandomString(potentialPasswordChars, lengthResponse);
+  var passwordText = document.querySelector("#password");
+  passwordText.value = password;
+  console.log(password);
 }
 
 //this function will run through the prompts to make sure the password is between 8-128 characters
@@ -111,6 +133,36 @@ function runlengthPrompt() {
     );
 
     return lengthPrompt;
+}
+
+function getRandomValue(array) {
+  debugger;
+  const min = 0; // an integer
+  const max = array.length; // guaranteed to be an integer
+
+  /*
+   Math.random() will return a random number [0, 1) Notice here that it does not include 1 itself
+   So basically it is from 0 to .9999999999999999
+
+   We multiply this random number by the difference between max and min (max - min). Here our min is always 0.
+   so now we are basically getting a value from 0 to just less than array.length
+   BUT we then call Math.floor on this function which returns the given number rounded down to the nearest integer
+   So Math.floor(Math.random() * (max - min)) returns 0 to array.length - 1
+   This gives us a random index in the array
+  */
+  const randomIndex = Math.floor(Math.random() * (max - min)) + min;
+
+  // then we grab the item that is located at that random index and return it
+  return array[randomIndex];
+}
+
+function getRandomString(charset, length) {
+  debugger;
+  var result = '';
+  for (var i = 0; i <= length; i++) {
+    result += getRandomValue(charset);
+  }
+  return result;
 }
 
 
@@ -144,10 +196,10 @@ function writePassword() {
 // console.log(getRandomNumber());
 
 // //I called this special variable from the local scope ----------
-function getRandomSpecial() {
-  return specialChar[Math.floor(Math.random() * specialChar.length)];
-}
-console.log(getRandomSpecial());
+// function getRandomSpecial() {
+//   return specialChar[Math.floor(Math.random() * specialChar.length)];
+// }
+// console.log(getRandomSpecial());
 
 // if (getRandomSpecial === "Y" && passwordLength > 0) {
 //   index = useSpecial[Math.floor(Math.random() * specialChar.length)];
