@@ -15,19 +15,22 @@ var getLength = false;
 // made each prompt an object and put into an array
 var numberPrompt = {
   name: "numberPrompt",
-  prompt: "Do you want numbers included? If so, type 'Y'.",
+  prompt: "Do you want numbers included? Type 'Y' for yes, and 'N' for no.",
 };
 var lowerPrompt = {
   name: "lowerPrompt",
-  prompt: "Do you want lowercase letters included? If so, type 'Y'.",
+  prompt:
+    "Do you want lowercase letters included? Type 'Y' for yes, and 'N' for no.",
 };
 var upperPrompt = {
   name: "upperPrompt",
-  prompt: "Do you want uppercase letters included? If so, type 'Y'.",
+  prompt:
+    "Do you want uppercase letters included? Type 'Y' for yes, and 'N' for no.",
 };
 var specialPrompt = {
   name: "specialPrompt",
-  prompt: "Do you want special characters inlcuded? If so, type 'Y'.",
+  prompt:
+    "Do you want special characters inlcuded? Type 'Y' for yes, and 'N' for no.",
 };
 var lengthPrompt = { name: "lengthPrompt", prompt: this.runlengthPrompt() };
 
@@ -48,43 +51,45 @@ function getPrompts(prompts) {
   if (!prompts) {
     prompts = promptsArray;
   }
-  
+
   for (var i = 0; i < prompts.length; i++) {
     var item = prompts[i];
-  
-      if (item.name === "numberPrompt") {
+
+    if (item.name === "numberPrompt") {
       var numberResponse = prompt(item.prompt);
       if (numberResponse.toUpperCase() === "Y") {
         useNumbers = true;
       }
-      
-      } else if (item.name === "lowerPrompt") {
+    } else if (item.name === "lowerPrompt") {
       var lowerResponse = prompt(item.prompt);
       if (lowerResponse.toUpperCase() === "Y") {
         useLower = true;
       }
-
-      } else if (item.name === "upperPrompt") {
-        var upperResponse = prompt(item.prompt);
-        if (upperResponse.toUpperCase() === "Y"){   
-          useUpper = true;
+    } else if (item.name === "upperPrompt") {
+      var upperResponse = prompt(item.prompt);
+      if (upperResponse.toUpperCase() === "Y") {
+        useUpper = true;
       }
-
-      } else if (item.name === "specialPrompt") {
-        var specialResponse = prompt(item.prompt);
-        if (specialResponse.toUpperCase() === "Y"){
-          useSpecial = true;
+    } else if (item.name === "specialPrompt") {
+      var specialResponse = prompt(item.prompt);
+      if (specialResponse.toUpperCase() === "Y") {
+        useSpecial = true;
       }
-
     } else if (item.name === "lengthPrompt") {
       getLength = true;
-      var lengthResponse = runlengthPrompt(); 
+      var lengthResponse = runlengthPrompt();
       passwordLength = lengthResponse;
     }
   }
 
   validatePrompts();
-  getPasswordCharacters(useNumbers, useLower, useUpper, useSpecial, passwordLength); 
+  getPasswordCharacters(
+    useNumbers,
+    useLower,
+    useUpper,
+    useSpecial,
+    passwordLength
+  );
 }
 
 //this function will run through the prompts to make sure the password is between 8-128 characters
@@ -100,39 +105,44 @@ function runlengthPrompt() {
   );
 
   if (isNaN(lengthPrompt) || lengthPrompt < 8 || lengthPrompt > 128)
-  lengthPrompt = Number(
+    lengthPrompt = Number(
       prompt(
         "Length must be 8-128 characters. How many characters would you like your password to be?"
       )
     );
 
-    return lengthPrompt;
+  return lengthPrompt;
 }
 
-function getPasswordCharacters(useNumbers, useLower, useUpper, useSpecial, passwordLength) {
-  var potentialPasswordChars = '';
+function getPasswordCharacters(
+  useNumbers,
+  useLower,
+  useUpper,
+  useSpecial,
+  passwordLength
+) {
+  var potentialPasswordChars = "";
 
   if (useUpper) {
     potentialPasswordChars = upperLetters;
-  } 
-
- if (useLower) {
-    potentialPasswordChars += lowerLetters;  
   }
 
- if (useNumbers) {
+  if (useLower) {
+    potentialPasswordChars += lowerLetters;
+  }
+
+  if (useNumbers) {
     potentialPasswordChars += numbers;
   }
 
- if (useSpecial) {
+  if (useSpecial) {
     potentialPasswordChars += specialChars;
   }
 
-generateAndResetPassword(potentialPasswordChars, passwordLength);
+  generateAndResetPassword(potentialPasswordChars, passwordLength);
 }
 
-
-function generateAndResetPassword(potentialPasswordChars, passwordLength){
+function generateAndResetPassword(potentialPasswordChars, passwordLength) {
   var password = generatePassword(potentialPasswordChars, passwordLength);
   var passwordText = document.querySelector("#password");
   passwordText.value = password;
@@ -141,7 +151,7 @@ function generateAndResetPassword(potentialPasswordChars, passwordLength){
 
 //if the prompts are all false then the user will be alerted and a new set of prompts will be dislayed
 function validatePrompts() {
-  if (!useNumbers && !useLower && !useUpper && !useSpecial){
+  if (!useNumbers && !useLower && !useUpper && !useSpecial) {
     alert("You must select one character type to generate a password.");
     getPrompts();
   }
@@ -159,14 +169,14 @@ function getRandomValue(charSet) {
 
 // this function "generatePassword" is going to generate the random password from the values we obtained from the prompts
 function generatePassword(charSet, length) {
-  var result = '';
+  var result = "";
   for (var i = 0; i <= length; i++) {
     result += getRandomValue(charSet);
   }
   return result;
 }
 
-// this will reset the values back to default. 
+// this will reset the values back to default.
 function resetDefaultValues() {
   useNumbers = false;
   useLower = false;
